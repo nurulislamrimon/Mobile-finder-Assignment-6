@@ -4,15 +4,14 @@ document.getElementById("search-btn").addEventListener("click", () => {
     getPhoneData(searchFeild.value);
 })
 // =================find phone and display section=======================
-// get phones data
+// get phone's data
 const getPhoneData = input => {
-    const iphone = "iphone";
     fetch(`https://openapi.programming-hero.com/api/phones?search=${input}`)
         .then(res => res.json())
-        .then(data => displayPhones(data));
+        .then(data => displayPhonesData(data));
 }
-// display phones data
-const displayPhones = phones => {
+// phone's length condition testing
+const displayPhonesData = phones => {
     const phonesContainer = document.getElementById("phone-display");
     const detailsContainer = document.getElementById("phone-details");
     // clearing
@@ -22,46 +21,59 @@ const displayPhones = phones => {
     if (phones.status == false) {
         const notFound = document.createElement("div");
         notFound.innerHTML = `
-        <h2 class="text-center mt-5 text-warning">No phone found !</h2>
-        `
+        <h2 class="text-center mt-5 text-warning">No phone found !</h2>`
         phonesContainer.appendChild(notFound);
     }
     else {
-        phones.data.forEach(phone => {
-            const newPhoneContainer = document.createElement("div");
-            // destructuring
-            const { image, brand, phone_name, slug } = phone;
-            newPhoneContainer.innerHTML = `
-            <div class="card shadow" style ="width: 18rem"> 
-                <img src="${phone.image}" width="250" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${phone_name}</h5>
-                        <h6 class="card-text">Brand: ${brand}</h6>
-                        <button href="#" class="btn btn-light w-100 text-center" onclick="phoneDetails('${slug}')">More details</button>
-                    </div>
-                </div>`;
-            phonesContainer.classList.add("phones-container");
-            phonesContainer.appendChild(newPhoneContainer);
-        });
+        if (phones.data.length > 20) {
+            displayPhones(phones.data.slice(0, 20));
+            const btnContainer = document.createElement("div");
+            btnContainer.classList.add("d-flex");
+            btnContainer.innerHTML = `
+            <button class="see-more-button" onclick="displayPhones('${phones.data}')">Show All</button>`;
+            console.log(phones.data);
+            phonesContainer.appendChild(btnContainer);
+
+        } else {
+            displayPhones(phones.data);
+        }
     }
 };
+// display phone's data
+const displayPhones = phonesData => {
+    const phonesContainer = document.getElementById("phone-display");
+
+    phonesData.forEach(phone => {
+        const newPhoneContainer = document.createElement("div");
+        // destructuring
+        const { image, brand, phone_name, slug } = phone;
+        newPhoneContainer.innerHTML = `
+        <div class="card shadow" style ="width: 18rem"> 
+            <img src="${phone.image}" width="250" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${phone_name}</h5>
+                    <h6 class="card-text">Brand: ${brand}</h6>
+                    <button href="#" class="btn btn-light w-100 text-center" onclick="phoneDetails('${slug}')">More details</button>
+                </div>
+            </div>`;
+        phonesContainer.classList.add("phones-container");
+        phonesContainer.appendChild(newPhoneContainer);
+    });
+}
 // ===============get details and display=======================
 // get phone details
 const phoneDetails = id => {
     fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
         .then(res => res.json())
         .then(data => displayPhoneDetails(data));
-    console.log(id);
 };
 // display phone details
 const displayPhoneDetails = fullDetails => {
     const detailsContainer = document.getElementById("phone-details");
     detailsContainer.textContent = "";
-    console.log(fullDetails);
     // destructuring
     const { image, name, releaseDate } = fullDetails.data;
     const { storage, displaySize, chipSet, memory, sensors } = fullDetails.data.mainFeatures;
-    // const { Bluetooth, GPS, NFC, Radio, USB, WLAN } = fullDetails?.data?.others;
     // all sensor in a variable
     const allSensors = sensors.join(", ");
 

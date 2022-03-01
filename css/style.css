@@ -12,11 +12,24 @@
     margin: 0 auto;
     margin-top: 30px;
 }
+.phones-container div{
+    border-radius: 30px;
+}
 .details-style{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 20px;
+}
+/* .btn-container{
+    display: flex;
+} */
+.see-more-button{
+    padding: 10px 40px;
+    border-radius: 50%;
+    margin: auto auto;
+    border: none;
+    box-shadow: inset black -2px -2px 2px ;
 }
 
 @media screen and (max-width:760px) {
