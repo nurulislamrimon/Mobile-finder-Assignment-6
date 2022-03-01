@@ -31,6 +31,13 @@
     border: none;
     box-shadow: inset black -2px -2px 2px ;
 }
+.spinner-container{
+    display: flex;
+}
+#spinner{
+    display: none;
+    margin: 100px auto;
+}
 
 @media screen and (max-width:760px) {
     .phones-container{

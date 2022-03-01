@@ -2,6 +2,8 @@
 document.getElementById("search-btn").addEventListener("click", () => {
     const searchFeild = document.getElementById("search-box");
     getPhoneData(searchFeild.value);
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
 })
 // =================find phone and display section=======================
 // get phone's data
@@ -59,6 +61,8 @@ const displayPhones = phonesData => {
         phonesContainer.classList.add("phones-container");
         phonesContainer.appendChild(newPhoneContainer);
     });
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "none";
 }
 // ===============get details and display=======================
 // get phone details
