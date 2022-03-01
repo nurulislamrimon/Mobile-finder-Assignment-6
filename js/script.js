@@ -3,6 +3,7 @@ document.getElementById("search-btn").addEventListener("click", () => {
     const searchFeild = document.getElementById("search-box");
     getPhoneData(searchFeild.value);
 })
+// =================find phone and display section=======================
 // get phones data
 const getPhoneData = input => {
     const iphone = "iphone";
@@ -13,18 +14,31 @@ const getPhoneData = input => {
 // display phones data
 const displayPhones = phones => {
     const phonesContainer = document.getElementById("phone-display");
-    phones.data.forEach(phone => {
-        console.log(phone);
-        const newPhoneContainer = document.createElement("div");
-        newPhoneContainer.innerHTML = `
-    <div class="card" style="width: 18rem;">
-      <img src="#" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">${phone.phone_name}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>`;
-        phonesContainer.appendChild(newPhoneContainer);
-    });
+    phonesContainer.textContent = "";
+    // no phone found debugger
+    if (phones.status == false) {
+        const notFound = document.createElement("div");
+        notFound.innerHTML = `
+        <h2 class="text-center mt-5 text-warning">No phone found !</h2>
+        `
+        phonesContainer.appendChild(notFound);
+    }
+    else {
+        phones.data.forEach(phone => {
+            const newPhoneContainer = document.createElement("div");
+            // destructuring
+            const { image, brand, phone_name, slug } = phone;
+            newPhoneContainer.innerHTML = `
+            <div class="card shadow" style ="width: 18rem" > 
+                <img src="${phone.image}" height="250"class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${phone_name}</h5>
+                        <h6 class="card-text">Brand: ${brand}</h6>
+                        <button href="#" class="btn btn-light w-100 text-center" onclick="phoneDetails('${slug}')">More details</button>
+                    </div>
+                </div>`;
+            phonesContainer.classList.add("phones-container");
+            phonesContainer.appendChild(newPhoneContainer);
+        });
+    }
 };

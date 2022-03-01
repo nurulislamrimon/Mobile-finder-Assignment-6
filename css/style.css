@@ -12,6 +12,12 @@
     margin: 0 auto;
     margin-top: 30px;
 }
+.details-style{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
 
 @media screen and (max-width:760px) {
     .phones-container{
@@ -20,5 +26,8 @@
     }
     .phones-container div{
         margin: 0 auto;
+    }
+    .details-style{
+        flex-direction: column;
     }
 }
