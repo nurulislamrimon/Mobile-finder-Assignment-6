@@ -42,3 +42,34 @@ const displayPhones = phones => {
         });
     }
 };
+// ===============get details and display=======================
+// get phone details
+const phoneDetails = id => {
+    fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+        .then(res => res.json())
+        .then(data => displayPhoneDetails(data));
+};
+// display phone details
+const displayPhoneDetails = fullDetails => {
+    const detailsContainer = document.getElementById("phone-details");
+    detailsContainer.textContent = "";
+    // destructuring
+    const { image, name, releaseDate } = fullDetails.data;
+    const { storage, displaySize, chipSet, memory } = fullDetails.data.mainFeatures;
+
+    const newDetailsContainer = document.createElement("div");
+    newDetailsContainer.classList.add("details-style");
+    newDetailsContainer.innerHTML = `
+        <img src="${image}" height="400">
+        <div class="ms-5">
+            <h2>Name : ${name}</h2>
+            <p>Release-date : ${releaseDate}</p>
+            <h6>Features </h6>
+            <p>Storage : ${storage}</p>
+            <p>Display-Size : ${displaySize}</p>
+            <p>Chipset : ${chipSet}</p>
+            <p>Memory : ${memory}</p>
+        </div>`;
+    detailsContainer.appendChild(newDetailsContainer);
+    console.log(storage, displaySize, chipSet, memory);
+}
