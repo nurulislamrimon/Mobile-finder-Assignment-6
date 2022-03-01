@@ -25,6 +25,8 @@ const displayPhonesData = phones => {
         notFound.innerHTML = `
         <h2 class="text-center mt-5 text-warning">No phone found !</h2>`
         phonesContainer.appendChild(notFound);
+        const spinner = document.getElementById("spinner");
+        spinner.style.display = "none";
     }
     else {
         if (phones.data.length > 20) {
@@ -35,7 +37,6 @@ const displayPhonesData = phones => {
             <button class="see-more-button" onclick="displayPhones('${phones.data}')">Show All</button>`;
             console.log(phones.data);
             phonesContainer.appendChild(btnContainer);
-
         } else {
             displayPhones(phones.data);
         }
