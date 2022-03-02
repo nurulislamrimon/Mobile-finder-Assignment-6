@@ -29,13 +29,13 @@ const displayPhonesData = phones => {
         spinner.style.display = "none";
     }
     else {
+        const phonesData = phones.data;
         if (phones.data.length > 20) {
-            displayPhones(phones.data.slice(0, 20));
+            displayPhones(phonesData.slice(0, 20));
             const btnContainer = document.createElement("div");
             btnContainer.classList.add("d-flex");
             btnContainer.innerHTML = `
-            <button class="see-more-button" onclick="displayMorePhones('${phones.data}')">Show All</button>`;
-            console.log(phones.data);
+            <button class="see-more-button" onclick="displayPhones('${phonesData}')">Show All</button>`;
             phonesContainer.appendChild(btnContainer);
         } else {
             displayPhones(phones.data);
@@ -67,27 +67,6 @@ const displayPhones = phonesData => {
     const spinner = document.getElementById("spinner");
     spinner.style.display = "none";
 };
-// display more phone's data
-const displayMorePhones = phonesData => {
-    console.log(phonesData);
-    const phonesContainer = document.getElementById("phone-display");
-    const newPhoneContainer = document.createElement("div");
-    // destructuring
-    const { image, brand, phone_name, slug } = phonesData;
-    newPhoneContainer.innerHTML = `
-        <div class="card"> 
-            <img src="${image}" class="card-img-top img-fluid" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${phone_name}</h5>
-                    <h6 class="card-text">Brand: ${brand}</h6>
-                    <button href="#" class="btn btn-light w-100 text-center" onclick="phoneDetails('${slug}')">More details</button>
-                </div>
-            </div>`;
-    phonesContainer.classList.add("phones-container");
-    phonesContainer.appendChild(newPhoneContainer);
-    const spinner = document.getElementById("spinner");
-    spinner.style.display = "none";
-}
 // ===============get details and display=======================
 // get phone details
 const phoneDetails = id => {
@@ -127,4 +106,5 @@ const displayPhoneDetails = fullDetails => {
         </div>
         <img src="${image}" height="500">`;
     detailsContainer.appendChild(newDetailsContainer);
+    window.scrollTo(0, 0);
 }

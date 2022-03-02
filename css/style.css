@@ -3,6 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+.top-title{
+    color: white;
+}
+body{
+    background: url("../images/bgp.jpg");
+    background-size: cover;
+}
 /* phones display section */
 .phones-container{
     display: grid;
@@ -25,10 +32,11 @@
     justify-content: space-evenly;
     align-items: center;
     margin-top: 20px;
+    color: white;
 }
-/* .btn-container{
-    display: flex;
-} */
+.details-style img{
+    border-radius: 30px;
+}
 .see-more-button{
     padding: 10px 40px;
     border-radius: 50%;
