@@ -15,6 +15,11 @@
 .phones-container div{
     border-radius: 30px;
 }
+.card img{
+    height: 200px;
+    width: 180px;
+    margin: 5px auto;
+}
 .details-style{
     display: flex;
     justify-content: space-evenly;

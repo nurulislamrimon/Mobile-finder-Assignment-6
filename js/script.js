@@ -34,7 +34,7 @@ const displayPhonesData = phones => {
             const btnContainer = document.createElement("div");
             btnContainer.classList.add("d-flex");
             btnContainer.innerHTML = `
-            <button class="see-more-button" onclick="displayPhones('${phones.data}')">Show All</button>`;
+            <button class="see-more-button" onclick="displayMorePhones('${phones.data}')">Show All</button>`;
             console.log(phones.data);
             phonesContainer.appendChild(btnContainer);
         } else {
@@ -42,6 +42,8 @@ const displayPhonesData = phones => {
         }
     }
 };
+
+
 // display phone's data
 const displayPhones = phonesData => {
     const phonesContainer = document.getElementById("phone-display");
@@ -52,7 +54,7 @@ const displayPhones = phonesData => {
         const { image, brand, phone_name, slug } = phone;
         newPhoneContainer.innerHTML = `
         <div class="card shadow" style ="width: 18rem"> 
-            <img src="${phone.image}" width="250" class="card-img-top" alt="...">
+            <img src="${image}" width="250" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${phone_name}</h5>
                     <h6 class="card-text">Brand: ${brand}</h6>
@@ -62,6 +64,27 @@ const displayPhones = phonesData => {
         phonesContainer.classList.add("phones-container");
         phonesContainer.appendChild(newPhoneContainer);
     });
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "none";
+};
+// display more phone's data
+const displayMorePhones = phonesData => {
+    console.log(phonesData);
+    const phonesContainer = document.getElementById("phone-display");
+    const newPhoneContainer = document.createElement("div");
+    // destructuring
+    const { image, brand, phone_name, slug } = phonesData;
+    newPhoneContainer.innerHTML = `
+        <div class="card"> 
+            <img src="${image}" class="card-img-top img-fluid" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${phone_name}</h5>
+                    <h6 class="card-text">Brand: ${brand}</h6>
+                    <button href="#" class="btn btn-light w-100 text-center" onclick="phoneDetails('${slug}')">More details</button>
+                </div>
+            </div>`;
+    phonesContainer.classList.add("phones-container");
+    phonesContainer.appendChild(newPhoneContainer);
     const spinner = document.getElementById("spinner");
     spinner.style.display = "none";
 }
